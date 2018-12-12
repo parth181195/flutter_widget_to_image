@@ -1,8 +1,8 @@
-# toimage
+# flutter_widget_to_image
 
-A new Flutter project.
+Using `RepaintBoundary.toImage` to save a screenshot of any Widget
+or the whole app as PNG.
 
-## Getting Started
+More details in the [article](https://medium.com/flutter-community/export-your-widget-to-image-with-flutter-dc7ecfa6bafb).
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+![Screenshot](docs/Ny7FZGK.jpg)
