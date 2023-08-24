@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -30,30 +29,29 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey _globalKey = new GlobalKey();
 
   bool inside = false;
-  Uint8List imageInMemory;
+  late Uint8List imageInMemory;
 
   Future<Uint8List> _capturePng() async {
     try {
       print('inside');
       inside = true;
-      RenderRepaintBoundary boundary =
-          _globalKey.currentContext.findRenderObject();
+      RenderRepaintBoundary boundary = _globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List? pngBytes = byteData?.buffer.asUint8List();
 //      String bs64 = base64Encode(pngBytes);
 //      print(pngBytes);
 //      print(bs64);
       print('png done');
       setState(() {
-        imageInMemory = pngBytes;
+        imageInMemory = pngBytes!;
         inside = false;
       });
-      return pngBytes;
+      return pngBytes!;
     } catch (e) {
       print(e);
     }
+    return imageInMemory;
   }
 
   @override
@@ -72,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   new Text(
                     'click the button below to capture image',
                   ),
-                  new RaisedButton(
+                  new ElevatedButton(
                     child: Text('capture Image'),
                     onPressed: _capturePng,
                   ),
